@@ -1,0 +1,72 @@
+---
+
+# making NFS mounting...
+
+- name: creating /Sources folder
+  file: path=/Sources  state=directory
+
+- name: creating /versions folder
+  file: path=/versions  state=directory
+
+- name: creating /versions2 folder
+  file: path=/versions2  state=directory
+
+
+- name: creating /home folder
+  file: path=/home  state=directory
+
+
+- name: mounting /PIM/PIM_Sources
+  mount: 
+    name: "/Sources"
+    src: "10.130.24.175:/PIM/PIM_Sources"
+    fstype: "nfs"
+    state: "mounted"
+
+- name: mounting /PIM/PIM_Versions
+  mount: 
+    name: "/versions"
+    src: "10.130.24.175:/PIM/PIM_Versions"
+    fstype: "nfs"
+    state: "mounted"
+     
+
+- name: mounting /PIM/PIM_Versions2
+  mount: 
+    name: "/versions2"
+    src: "10.130.24.175:/PIM/PIM_Versions2"
+    fstype: "nfs"
+    state: "mounted"
+
+
+- name: mounting /PIM/PIM_home
+  mount: 
+    name: "/home"
+    src: "10.130.24.175:/PIM/PIM_home"
+    fstype: "nfs"
+    state: "mounted"
+
+
+- name: install depend
+  shell: cd /Sources/ac/125/dist/maketools/depend && gmake install
+
+
+- name: ssu pkg to usr/local/bin
+  command: cp /Sources/QA/52/production/QASH/bin/_LINUX/ssu /usr/local/bin
+
+- name: do_as pkg to usr/local/bin
+  command: cp /Sources/QA/52/production/QASH/bin/_LINUX/do_as /usr/local/bin
+
+- name: setUIF and setGID on ssu
+  file: path=/usr/local/bin/ssu state=file mode=6777
+
+- name: setUIF and setGID on do_as
+  file: path=/usr/local/bin/do_as state=file mode=6777
+
+- name: set permission on /usr/local/bin
+  file: path=/usr/local/bin state=directory mode=0777 recurse=yes
+
+
+#10.130.24.175:/PIM/PIM_Sources
+#10.130.24.175:/PIM/PIM_Versions
+#for unmounting use the state "unmounted"

@@ -1,0 +1,48 @@
+---
+
+# NIS Client configuration on Linux
+
+#- name: update the to /etc/sysconfig/network
+#  copy: src=network dest=/etc/sysconfig/network
+
+- name: Updating HOSTNAME in network file
+  lineinfile: dest=/etc/sysconfig/network regexp=^HOSTNAME= line=HOSTNAME={{ inventory_hostname }}
+
+- name: add a NIS server to /etc/yp.conf file   
+  lineinfile:
+    path: /etc/yp.conf
+    line: 'domain memco.il server 130.119.181.119'
+
+- name: Set a domain name as memco.il
+  shell: domainname memco.il
+
+- lineinfile:
+    path: /etc/nsswitch.conf
+    regexp: '^passwd'
+    line: 'passwd:     files nis'
+   
+- lineinfile:
+    path: /etc/nsswitch.conf
+    regexp: '^shadow'
+    line: 'shadow:     files nis'
+
+- lineinfile:
+    path: /etc/nsswitch.conf
+    regexp: '^group'
+    line: 'group:      files nis'
+
+- name: password file for NIS connection   
+  copy:
+    src: memco.il.2
+    dest: /var/yp/binding
+    mode: 0777
+
+- name: Start the ypbind service
+  service:
+    name: ypbind
+    state: started
+   
+- name: reload the ypbind service
+  service:
+    name: ypbind
+    state: reloaded

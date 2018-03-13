@@ -1,0 +1,71 @@
+---
+
+
+
+- name: soft link for tcsh
+  file: path=/usr/cross-compilers64
+        src=/Sources/ac/SC141/cross_compilers_kernal_bld_box_rhel73_64bit/cross-compilers64
+        state=link
+        force=yes
+
+- name:  creating cross-gcc directory
+  file:
+    path: /usr/cross-gcc
+    state: directory
+    mode: 0777
+
+- name: copying nightly_start.sh
+  copy:
+    src: nightly_start.sh
+    dest: /
+
+
+
+
+# ITS comment
+# - name: creating /usr/cross-compilers
+  # file:
+    # path: /usr/cross-compilers
+    # state: directory
+    # mode: 0755
+
+# - name: creating /usr/lib directory
+  # file:
+    # path: /usr/lib
+    # state: directory
+    # mode: 0755
+
+# - name: copying cross-compilers
+  # copy: 
+    # src: cross-compilers/{{ item }}
+    # dest: /usr/cross-compilers
+    # force: no
+  # with_items:
+    # - 3.3
+    # - 3.4.3
+    # - 4.1.0
+    # - 4.1.2
+    # - 4.3.2
+    # - 4.6.3
+
+# - name: copying cross-gcc
+  # copy: 
+    # src: cross-gcc
+    # dest: /usr/
+    # force: no
+
+# - name: copying gcc-lib
+  # copy: 
+    # src: gcc-lib
+    # dest: /usr/
+    # force: no
+
+# - name: copying libbfd- files
+  # copy: 
+    # src: "{{ item }}"
+    # dest: /usr/lib
+    # force: no
+  # with_items:
+    # - libbfd-2.10.91.0.2.so
+    # - libbfd-2.14.90.0.4.so
+    # - libbfd-2.15.90.0.1.1.so

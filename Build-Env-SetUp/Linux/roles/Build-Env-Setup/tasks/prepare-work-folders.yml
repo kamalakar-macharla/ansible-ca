@@ -1,0 +1,15 @@
+---
+# Prepare file structure on local (build) machine
+
+- name: creating /work/ac
+  file: path=/work/ac state=directory recurse=yes
+- name: creating /work/GUI
+  file: path=/work/GUI state=directory
+- name: creating /work/adauth
+  file: path=/work/adauth state=directory
+
+- name: permission to /work
+  file: path=/work state=directory mode=0777 recurse=yes
+
+# need to provide 0777 permission to /work
+# chmod -R /work

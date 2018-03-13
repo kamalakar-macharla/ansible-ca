@@ -1,0 +1,8 @@
+---
+# praparation of build machines
+
+- name: inlucde the config file
+  include: "config.yml"
+
+#- name: for testing
+#  include: "test-2.yml"

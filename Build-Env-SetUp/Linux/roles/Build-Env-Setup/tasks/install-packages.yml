@@ -1,0 +1,71 @@
+---
+# Runing play book...
+
+- name: Adding EPEL repo to YUM 
+  yum_repository: 
+    name: epel
+    description: EPEL YUM repo
+    baseurl: http://dl.fedoraproject.org/pub/epel/$releasever/$basearch/
+    gpgcheck: no
+    enabled: yes
+
+- name: Add ITC repo rhel6_u7_base
+  yum_repository:
+    name: Yum-rhel6_itc
+    description: rhel6_u7_base
+    baseurl: http://itcyum.ca.com/$releasever/os/$basearch/
+    gpgkey: http://itcyum.ca.com/$releasever/os/$basearch/RPM-GPG-KEY-redhat-release
+    gpgcheck: no
+    enabled: yes
+    
+
+- name: Add ITC repo rhel6_u7_update
+  yum_repository:
+    name: Yum-rhel6_itc_update
+    description: rhel6_u7_update
+    baseurl: http://itcyum.ca.com/$releasever/updates/$basearch/
+    gpgkey: http://itcyum.ca.com/$releasever/os/$basearch/RPM-GPG-KEY-redhat-release
+    gpgcheck: no
+    enabled: yes
+
+- name: Install packages
+  yum: name={{ item }} state=installed
+  with_items:
+   - python
+   - perl
+   - tcsh
+   - ypbind
+   - gcc
+   - gcc-c++
+   - libgcc
+   - glibc-devel
+   - pam-devel
+
+# cd to /usr/local/bin make a softlink for tcsh
+
+# yum install gcc.x86_64
+# yum install pam-devel-1.1.1-22.el6.x86_64
+# yum install glibc-devel.i686
+# yum install libgcc.i686
+# yum install gcc-c++*
+
+
+
+
+
+# - name: Adding rpmforge repo to YUM
+  # yum_repository:
+    # name: rpmforge
+    # description: RPMforge YUM repo
+    # file: external_repos
+    # baseurl: http://apt.sw.be/redhat/el7/en/$basearch/rpmforge
+    # mirrorlist: http://mirrorlist.repoforge.org/el7/mirrors-rpmforge
+    # enabled: yes
+
+# - name: Adding Oracle Linux repo to YUM 
+  # yum_repository: 
+    # name: oel
+    # description: Oracle Linux repo
+    # baseurl: https://public-yum.oracle.com/repo/OracleLinux/OL7/UEKR3/x86_64
+    # enabled: no
+

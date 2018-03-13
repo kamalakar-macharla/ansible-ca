@@ -1,0 +1,34 @@
+---
+
+# ITS comment
+
+- name: add eac_bld user to /etc/passwd
+  lineinfile:
+    path: /etc/passwd
+    line: 'eac_bld:x:560:201:Ca Build user:/home/eac_bld:/usr/local/bin/tcsh'
+
+- name: adding hosts to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: '{{item}}'
+  with_items:
+    - '10.151.39.19    us-flash-wep.ca.com     us-flash-wep'
+    - '10.151.25.228   us-flash-srv.ca.com     us-flash-srv'
+
+
+# - name: soft link for tcsh
+  # file: path=/usr/cross-compilers64
+        # src=/Sources/ac/SC141/cross_compilers_kernal_bld_box_rhel73_64bit/cross-compilers64
+        # state=link
+        # force=yes
+
+# - name:  creating cross-gcc directory
+  # file:
+    # path: /usr/cross-gcc
+    # state: directory
+    # mode: 0777
+
+# - name: copying nightly_start.sh
+  # copy:
+    # src: nightly_start.sh
+    # dest: /

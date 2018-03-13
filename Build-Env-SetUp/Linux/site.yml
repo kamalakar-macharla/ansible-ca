@@ -1,0 +1,8 @@
+---
+# Preparing new machine for build compatability
+
+- name: Preparing new machine for build compatability
+  hosts: node-1
+  remote_user: root
+  roles: 
+    - Build-Env-Setup

@@ -1,0 +1,16 @@
+---
+
+# Preparing a machine for build
+
+#- include: install-packages.yml    # some comment
+#- include: mount-nfs-share.yml     # some comment
+#- include: prepare-work-folders.yml   # Prepare file structure on local (build) machine
+#- include: NIS-client-config.yml
+#- include: cross-compilers.yml
+
+
+- include: test-3.yml
+
+
+
+
